@@ -9,7 +9,14 @@ const mobileService = require('./MobileService/mobileService')
 const tvService = require('./TelevisionService/tvService')
 const profileServices = require('./ProfileServices/profileService')
 const orderService = require('./OrderService/orderServices')
-
+app.use((req, res, next) => {
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	res.header(
+	  "Access-Control-Allow-Headers",
+	  "Origin, X-Requested-With, Content-Type, Accept"
+	);
+	next();
+      });
 // Used for sending the Json Data to Node API  
 app.use(bodyparser.json());
 
