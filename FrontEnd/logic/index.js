@@ -24,7 +24,7 @@ window.onload = function() {
 		}
 	}
 
-	function setFeaturedProducts() {
+	async function setFeaturedProducts() {
 		let pro_container = document.getElementById("product-container");
 		var url = `http://localhost:1234/getProductByPage?uid=1&page=1&category=airConditionar`
 		try {
@@ -32,7 +32,7 @@ window.onload = function() {
 			.then(res => res.json())
 			.then(res => {
 					var products = res.data.data;
-					for (let i = 0; i <= 7; i++) {
+					for (let i = 0; i <= 3; i++) {
 						var curProduct = products[i];
 						var image = curProduct.image_url.replace("128/128", "832/832")
 						console.log(curProduct.name)
@@ -41,7 +41,9 @@ window.onload = function() {
 						child.id = `${curProduct.id}`;
 						let img = "/assets/img/products/f1.jpg"
 						child.innerHTML = `
-								<img src="${image}" alt="" height="100px">
+								<div style="height:160px">
+								<img src="${image}" alt="">
+								</div>
 								<div class="des">
 									<span>${curProduct.name.split(" ")[0]}</span>
 									<h5>${curProduct.name}</h5>
@@ -66,16 +68,17 @@ window.onload = function() {
 			console.log(err)
 		}
 	}
+	
 
-	function setNewProducts() {
+	async function setNewProducts() {
 		let pro_container = document.getElementById("new-product-container");
-		var url = `http://localhost:1234/getProductByPage?uid=1&page=1&category=cloth`
+		var url = `http://localhost:1234/getProductByPage?uid=1&page=1&category=television`
 		try {
 			fetch(url)
 			.then(res => res.json())
 			.then(res => {
 					var products = res.data.data;
-					for (let i = 0; i <= 7; i++) {
+					for (let i = 0; i <= 3; i++) {
 						var curProduct = products[i];
 						var image = curProduct.image_url.replace("128/128", "832/832")
 						console.log(curProduct.name)
@@ -83,9 +86,12 @@ window.onload = function() {
 						child.className = "pro";
 						child.id = `${curProduct.id}`;
 						let img = "/assets/img/products/f1.jpg"
-						child.innerHTML = `<img src="${image}" alt="" height="300px">
+						child.innerHTML = `
+								<div style="height:160px">
+								<img src="${image}" alt="">
+								</div>
 								<div class="des">
-									<span>addidas</span>
+									<span>${curProduct.name.split(" ")[0]}</span>
 									<h5>${curProduct.name}</h5>
 									<div class="star">
 									<i class='bx bxs-star'></i>
@@ -99,7 +105,7 @@ window.onload = function() {
 								<a href="#"><box-icon name='cart' type='solid' color='#08ea94' class="add-to-cart-btn" ></box-icon></a>`;
 								pro_container.appendChild(child);
 								child.addEventListener("click", () => {
-									window.location=`http://127.0.0.1:5500/FrontEnd/view/product_details.html?id=${child.id}&category=cloth`
+									window.location=`http://127.0.0.1:5500/FrontEnd/view/product_details.html?id=${child.id}&category=airConditionar`
 									console.log(`${child.id}`);
 								});
 					}
@@ -108,4 +114,5 @@ window.onload = function() {
 			console.log(err)
 		}
 	}
+	
 }

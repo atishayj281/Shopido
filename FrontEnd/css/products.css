@@ -14,6 +14,43 @@
 	color: white;
 }
 
+.product-header {
+	display: flex;
+	margin-top: 40px;
+	margin-left: 40px;
+	margin-right: 40px;
+	justify-content: space-between;
+}
+.product-header button{
+	font-size: 12px;
+	padding: 1em 2em;
+	margin: 2px;
+	border: 0;
+	outline: 0;
+	color: white;
+	background-color: rgb(102, 55, 55);
+	text-transform: uppercase;
+	border-radius: 1em;
+	box-shadow: 0 0 8px rgb(102, 55, 55);
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+}
+.product-header button .ripple{
+	border-radius: 50%;
+	background-color: rgba(255, 255, 255, 0.7);
+	position: absolute;
+	transform: scale(0);
+	animation: ripple 0.6s linear;
+      }
+      
+      @keyframes ripple{
+	to{
+	  transform: scale(2.5);
+	  opacity: 0;
+	}
+      }
+
 #pagination{
 	text-align: center;
 }

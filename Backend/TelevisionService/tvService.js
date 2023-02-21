@@ -57,6 +57,7 @@ function getPageTelevision(page, res) {
 	var productQuery = `SELECT * FROM product WHERE product.id BETWEEN ${(page - 1)*pageSize} and ${page*pageSize}`;
 	con.query(productQuery, (err, resp) => {
 		if (err) {
+			console.log(err.message);
 			res.status(400).json({ message: err.message });
 			return;
 		}

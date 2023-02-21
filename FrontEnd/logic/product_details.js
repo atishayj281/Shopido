@@ -13,7 +13,7 @@ function setFeaturedProducts() {
 	  child.className = "pro";
 	  child.id = `product-${i}`;
 	  let img = "/assets/img/products/f1.jpg"
-	  child.innerHTML = `<img src="${img}" alt="">
+	  child.innerHTML = `<div><img src="${img}" alt=""></div>
 					      <div class="des">
 						      <span>addidas</span>
 						      <h5>Cartoon Astronaut T-shirts</h5>
