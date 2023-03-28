@@ -323,3 +323,7 @@ function createRipple(e)
   
   circle.classList.add('ripple');
 }
+
+document.getElementById("cloth-btn").addEventListener('click', ()=> {
+	window.location = "http://127.0.0.1:5500/FrontEnd/view/cloth.html"
+})
