@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans', sans-serif
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    display: grid;
+    place-items: center;
+    background: #ffffff
+}
+.card {
+	color:#030303;
+    width: 400px;
+    border-radius: 10px;
+   background: linear-gradient(145deg, #f4f4f4, #ffffff);
+box-shadow:  20px 20px 60px #bebebe, 
+             -20px -20px 60px #dadada;
+    border: none;
+    margin-top: 40px;
+}
+
+.neo-button {
+    width: 40px;
+    height: 40px;
+    outline: 0 !important;
+    cursor: pointer;
+    color: #e5e5e5;
+    font-size: 15px;
+    border: none;
+    margin-right: 10px;
+    border-radius: 50%;
+/* background: linear-gradient(145deg, #e4e4e4, #ffffff); */
+/* box-shadow: inset 20px 20px 60px #dedede, 
+             inset -20px -20px 60px #f1f1f1; */
+}
+
+.num{
+	
+	color:#2a2a2a !important;
+}
+
+.line{
+	background-color:rgb(102, 55, 55);
+}
+
+.neo-button:hover {
+   border-radius: 50%;
+background: #e1e1e1;
+box-shadow:  28px 28px 57px rgb(240, 240, 240), 
+             -28px -28px 57px #f0f0f0;
+}
+
+.fa-facebook {
+    color: #3b5998
+}
+
+.fa-linkedin {
+    color: #0077b5
+}
+
+.fa-google {
+    color: #dc4e41
+}
+
+.fa-youtube {
+    color: #cd201f
+}
+
+.fa-twitter {
+    color: #55acee
+}
+
+.profile_button{
+	color:#ffffff;
+	padding:10px; 
+   border:none;
+   outline:0 !important;
+border-radius: 50px;
+background-color: #222;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06)
+}
+.profile_button a{
+    text-decoration: none;
+    color: white;
+}
+.profile_button:hover,
+.profile_button:active{
+   background-color: rgb(102, 55, 55);
+}
