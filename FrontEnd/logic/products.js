@@ -1,3 +1,6 @@
+
+const custId = localStorage['id']
+
 init();
 function init(){
 	// setFeaturedProducts();
@@ -30,7 +33,7 @@ function startHamburgerMenu() {
 
 async function setACProducts() {
 	let pro_container = document.getElementById("product-container");
-	var url = `http://localhost:1234/getProductByPage?uid=1&page=1&category=airConditionar`
+	var url = `http://localhost:1234/getProductByPage?uid=${custId}&page=1&category=airConditionar`
 	try {
 		fetch(url)
 		.then(res => res.json())
@@ -63,6 +66,9 @@ async function setACProducts() {
 							<a href="#"><box-icon name='cart' type='solid' color='#08ea94' class="add-to-cart-btn" ></box-icon></a>`;
 							pro_container.appendChild(child);
 							child.addEventListener("click", () => {
+								sessionStorage['category'] = "airconditionar"
+								sessionStorage['productId'] = child.id;
+								console.log(child.id);
 								window.location=`http://127.0.0.1:5500/FrontEnd/view/product_details.html?id=${child.id}&category=airConditionar`
 								console.log(`${child.id}`);
 							});
@@ -75,7 +81,7 @@ async function setACProducts() {
 
 async function setClothProducts() {
 	let pro_container = document.getElementsByClassName("cloths")[0];
-	var url = `http://localhost:1234/getProductByPage?uid=1&page=1&category=cloth`
+	var url = `http://localhost:1234/getProductByPage?uid=${custId}&page=1&category=cloth`
 	try {
 		fetch(url)
 		.then(res => res.json())
@@ -108,7 +114,9 @@ async function setClothProducts() {
 							<a href="#"><box-icon name='cart' type='solid' color='#08ea94' class="add-to-cart-btn" ></box-icon></a>`;
 							pro_container.appendChild(child);
 							child.addEventListener("click", () => {
-								window.location=`http://127.0.0.1:5500/FrontEnd/view/product_details.html?id=${child.id}&category=airConditionar`
+								sessionStorage['category'] = "cloth"
+								sessionStorage['productId'] = child.id;
+								window.location=`http://127.0.0.1:5500/FrontEnd/view/product_details.html?id=${child.id}&category=cloth`
 								console.log(`${child.id}`);
 							});
 				}
@@ -120,7 +128,7 @@ async function setClothProducts() {
 
 async function setMobilesProducts() {
 	let pro_container = document.getElementsByClassName("mobile")[0];
-	var url = `http://localhost:1234/getProductByPage?uid=1&page=1&category=mobile`
+	var url = `http://localhost:1234/getProductByPage?uid=${custId}&page=1&category=mobile`
 	try {
 		fetch(url)
 		.then(res => res.json())
@@ -153,7 +161,9 @@ async function setMobilesProducts() {
 							<a href="#"><box-icon name='cart' type='solid' color='#08ea94' class="add-to-cart-btn" ></box-icon></a>`;
 							pro_container.appendChild(child);
 							child.addEventListener("click", () => {
-								window.location=`http://127.0.0.1:5500/FrontEnd/view/product_details.html?id=${child.id}&category=airConditionar`
+								sessionStorage['category'] = "mobiles"
+								sessionStorage['productId'] = child.id;
+								window.location=`http://127.0.0.1:5500/FrontEnd/view/product_details.html?id=${child.id}&category=mobiles`
 								console.log(`${child.id}`);
 							});
 				}
@@ -165,7 +175,7 @@ async function setMobilesProducts() {
 
 async function setTelevision() {
 	let pro_container = document.getElementsByClassName("tv")[0];
-	var url = `http://localhost:1234/getProductByPage?uid=1&page=1&category=television`
+	var url = `http://localhost:1234/getProductByPage?uid=${custId}&page=1&category=television`
 	try {
 		fetch(url)
 		.then(res => res.json())
@@ -198,7 +208,9 @@ async function setTelevision() {
 							<a href="#"><box-icon name='cart' type='solid' color='#08ea94' class="add-to-cart-btn" ></box-icon></a>`;
 							pro_container.appendChild(child);
 							child.addEventListener("click", () => {
-								window.location=`http://127.0.0.1:5500/FrontEnd/view/product_details.html?id=${child.id}&category=airConditionar`
+								sessionStorage['category'] = "television"
+								sessionStorage['productId'] = child.id;
+								window.location=`http://127.0.0.1:5500/FrontEnd/view/product_details.html?id=${child.id}&category=television`
 								console.log(`${child.id}`);
 							});
 				}
@@ -210,7 +222,7 @@ async function setTelevision() {
 
 async function setFootwear() {
 	let pro_container = document.getElementsByClassName("footwear")[0];
-	var url = `http://localhost:1234/getProductByPage?uid=1&page=1&category=footwear`
+	var url = `http://localhost:1234/getProductByPage?uid=${custId}&page=1&category=footwear`
 	try {
 		fetch(url)
 		.then(res => res.json())
@@ -243,7 +255,9 @@ async function setFootwear() {
 							<a href="#"><box-icon name='cart' type='solid' color='#08ea94' class="add-to-cart-btn" ></box-icon></a>`;
 							pro_container.appendChild(child);
 							child.addEventListener("click", () => {
-								window.location=`http://127.0.0.1:5500/FrontEnd/view/product_details.html?id=${child.id}&category=airConditionar`
+								sessionStorage['category'] = "footwear"
+								sessionStorage['productId'] = child.id;
+								window.location=`http://127.0.0.1:5500/FrontEnd/view/product_details.html?id=${child.id}&category=footwear`
 								console.log(`${child.id}`);
 							});
 				}
@@ -255,7 +269,7 @@ async function setFootwear() {
 
 async function setFurniture() {
 	let pro_container = document.getElementsByClassName("furniture")[0];
-	var url = `http://localhost:1234/getProductByPage?uid=1&page=1&category=furniture`
+	var url = `http://localhost:1234/getProductByPage?uid=${custId}&page=1&category=furniture`
 	try {
 		fetch(url)
 		.then(res => res.json())
@@ -288,7 +302,9 @@ async function setFurniture() {
 							<a href="#"><box-icon name='cart' type='solid' color='#08ea94' class="add-to-cart-btn" ></box-icon></a>`;
 							pro_container.appendChild(child);
 							child.addEventListener("click", () => {
-								window.location=`http://127.0.0.1:5500/FrontEnd/view/product_details.html?id=${child.id}&category=airConditionar`
+								sessionStorage['category'] = "furniture"
+								sessionStorage['productId'] = child.id;
+								window.location=`http://127.0.0.1:5500/FrontEnd/view/product_details.html?id=${child.id}&category=furniture`
 								console.log(`${child.id}`);
 							});
 				}
@@ -301,9 +317,6 @@ var buttons = document.getElementsByTagName('button');
 for(let i = 0; i<6;i++){
 	buttons[i].addEventListener('click', createRipple);
 }
-// Array.prototype.forEach.call(buttons, function(b){
-//   b.addEventListener('click', createRipple);
-// })
 
 function createRipple(e)
 {
@@ -325,5 +338,27 @@ function createRipple(e)
 }
 
 document.getElementById("cloth-btn").addEventListener('click', ()=> {
-	window.location = "http://127.0.0.1:5500/FrontEnd/view/cloth.html"
+	sessionStorage['category'] = "cloth"
+	window.location = "http://127.0.0.1:5500/FrontEnd/view/product.html"
+})
+
+document.getElementById("ac-btn").addEventListener('click', ()=> {
+	sessionStorage['category'] = "airconditionar"
+	window.location = "http://127.0.0.1:5500/FrontEnd/view/product.html"
+})
+document.getElementById("mobile-btn").addEventListener('click', ()=> {
+	sessionStorage['category'] = "mobile"
+	window.location = "http://127.0.0.1:5500/FrontEnd/view/product.html"
+})
+document.getElementById("tv-btn").addEventListener('click', ()=> {
+	sessionStorage['category'] = "television"
+	window.location = "http://127.0.0.1:5500/FrontEnd/view/product.html"
+})
+document.getElementById("footwear-btn").addEventListener('click', ()=> {
+	sessionStorage['category'] = "footwear"
+	window.location = "http://127.0.0.1:5500/FrontEnd/view/product.html"
+})
+document.getElementById("furniture-btn").addEventListener('click', ()=> {
+	sessionStorage['category'] = "furniture"
+	window.location = "http://127.0.0.1:5500/FrontEnd/view/product.html"
 })

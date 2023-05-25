@@ -1,7 +1,14 @@
+if(sessionStorage['id'] == null || sessionStorage['id'] == undefined) {
+	window.location = "http://127.0.0.1:5500/FrontEnd/view/auth.html"
+}
+
+const custId = localStorage['id']
+const category = sessionStorage['category']
+var page = 1;
 init();
 function init(){
 	startHamburgerMenu();
-	setClothProducts(1);
+	setClothProducts(page);
 }
 
 function startHamburgerMenu() {
@@ -19,6 +26,21 @@ function startHamburgerMenu() {
 			nav.classList.remove('active')
 		})
 	}
+
+	const next = document.getElementById("next-btn");
+	const prev = document.getElementById("previous-btn");
+
+	next.addEventListener("click", ()=>{
+		page += 1;
+		setClothProducts(page);
+	})
+
+	prev.addEventListener("click", ()=>{
+		page -= 1;
+		setClothProducts(page);
+	})
+
+
 }
 
 async function setClothProducts(page) {
@@ -26,12 +48,13 @@ async function setClothProducts(page) {
 	while (pro_container.hasChildNodes()){
 		pro_container.removeChild(pro_container.firstChild)
         }
-	var url = `http://localhost:1234/getProductByPage?uid=1&page=${page}&category=cloth`
+	var url = `http://localhost:1234/getProductByPage?uid=${custId}&page=${page}&category=${category}`
 	try {
 		fetch(url)
 		.then(res => res.json())
 		.then(res => {
 				var products = res.data.data;
+				console.log(products)
 				for (let i = 0; i <= 7; i++) {
 					var curProduct = products[i];
 					var image = curProduct.image_url.replace("128/128", "832/832")
@@ -59,7 +82,9 @@ async function setClothProducts(page) {
 							<a href="#"><box-icon name='cart' type='solid' color='#08ea94' class="add-to-cart-btn" ></box-icon></a>`;
 							pro_container.appendChild(child);
 							child.addEventListener("click", () => {
-								window.location=`http://127.0.0.1:5500/FrontEnd/view/product_details.html?id=${child.id}&category=airConditionar`
+								console.log(products[i].id)
+								sessionStorage['productId'] = child.id;
+								window.location=`http://127.0.0.1:5500/FrontEnd/view/product_details.html`
 								console.log(`${child.id}`);
 							});
 				}

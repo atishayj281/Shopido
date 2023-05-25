@@ -1,3 +1,5 @@
+const custId = localStorage['id']
+
 window.onload = function () {
 	init();
 }
@@ -12,7 +14,7 @@ function init() {
 
 function setOrderedProducts() {
 	let pro_container = document.getElementById("new-product-container");
-	var url = `http://localhost:1234/getProductByPage?uid=1&page=1&category=television`
+	var url = `http://localhost:1234/getProductByPage?uid=${custId}&page=1&category=television`
 	try {
 		fetch(url)
 			.then(res => res.json())

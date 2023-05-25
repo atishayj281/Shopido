@@ -1,3 +1,8 @@
+console.log(sessionStorage['id']);
+if(localStorage['id'] != null && localStorage['id'] != undefined) {
+    window.location = "http://127.0.0.1:5500/FrontEnd/view/index.html"
+}
+
 const firebaseConfig = {
     apiKey: "AIzaSyCT7rCu7DH9GycXRQSHrKUY8mkkNskdTJg",
     authDomain: "shopido-b4134.firebaseapp.com",
@@ -11,60 +16,156 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
-window.onload = function () {
+const signUpButton = document.getElementById('signUp');
+const logInButton = document.getElementById('logIn');
+const container = document.getElementById('container');
+const signInGoogle = document.getElementById("sign-in-google");
+const signInFacebook = document.getElementById("sign-in-facebook");
+const signUpGoogle = document.getElementById("sign-up-google")
+const signUpFacebook = document.getElementById("sign-up-facebook")
+const username = document.getElementById("username")
+const email = document.getElementById("email")
+const password = document.getElementById("password")
+const RegisterEmail = document.getElementById("signUpEmail")
+const registerPassword = document.getElementById("signUpPassword")
+const loginCustom = document.getElementById("login-custom")
+const registerBtn = document.getElementById("register")
 
-    signUpButton = document.getElementsByClassName('ghost');
-    signInButton = document.getElementById('signIn');
-    container = document.getElementById('container');
-    signInBtn = document.getElementById('sign-in-btn');
-    signUpBtn = document.getElementById('sign-up-btn')
-    authWithGoogleBtn = document.getElementById('google')
+loginCustom.addEventListener("click", () => {
+    console.log(email.value)
+    loginFirebase(email.value, password.value)
+})
 
-    signInBtn.addEventListener('click', () => {
+registerBtn.addEventListener("click", () => {
+    signUpUsingCustom(username.value, RegisterEmail.value, registerPassword.value);
+})
 
-    });
+signUpButton.addEventListener('click', () => {
+    container.classList.add("right-panel-active");
+});
 
-    authWithGoogleBtn.addEventListener('click', () => {
-        authWithGoogle();
-    });
+logInButton.addEventListener('click', () => {
+    container.classList.remove("right-panel-active");
+});
 
-    function signInCLick() {
-        container.classList.remove("right-panel-active");
-    }
+signInGoogle.addEventListener("click", () => {
+    authWithGoogle();
+})
 
-    function regClick() {
-        container.classList.add("right-panel-active");
-    }
+signUpGoogle.addEventListener("click", () => {
+    authWithGoogle();
+})
 
-    db.collection("user").get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            console.log(`${doc.id} => ${doc.data().email}`);
-        });
-    });
-    // Get a list of cities from your database
-    async function getProducts(db) {
-        const produtCol = collection(db, 'products');
-        const productSnapshot = await getDocs(produtCol);
-        const productList = productSnapshot.docs.map(doc => doc.data());
-        return productList;
-    }
+function authWithGoogle() {
+    var auth = firebase.auth();
+    console.log("Auth started");
+    var googleAuthProvider = new firebase.auth.GoogleAuthProvider
+    firebase.auth().signInWithPopup(googleAuthProvider).then(function (result) {
+        console.log(result.user.email)
+        var user = result.user;
+        sessionStorage['id'] = user.uid
+        sessionStorage['user'] = user;
+        getUserByEmail(user.email)
+    }).catch(function (error) {
+        console.log(error.message);
+    })
+}
 
+function signUpUsingCustom(username, email, password) {
 
-    function setCustomer(uid, email, mobile, name, image, address) {
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // Signed in 
+            var user = userCredential.user;
+            console.log(user)
+            sessionStorage['user'] = user
+            createCustomer(username, email).then(response => response.json())
+                .then(response => {
+                    alert(response.data.message);
+                    container.classList.remove("right-panel-active");
+                    console.log(response);
 
-    }
-
-    function authWithGoogle() {
-        var auth = firebase.auth();
-        console.log("Auth started");
-        var googleAuthProvider = new firebase.auth.GoogleAuthProvider
-        firebase.auth().signInWithPopup(googleAuthProvider).then(function (result) {
-            console.log(result.user)
-            var user = result.user;
-            setCustomer(user.uid, user.email, "", user.displayName, user.photoURL, "");
-        }).catch(function (error) {
-            console.log(error.message);
+                }).catch(error => alert(error));
+            // ...
         })
-    }
-};
+        .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(errorMessage)
+            // ..
+        });
+}
 
+const BASE_URL = "http://localhost:1234"
+
+function getUserByEmail(email) {
+    console.log(email);
+    var options = {
+        email: email
+    }
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify(options);
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    fetch(`${BASE_URL}/getUserIdByEmail`, requestOptions).then(response => response.json())
+    .then(response => {
+        console.log(response);
+        localStorage['id'] = response.cust_id
+        sessionStorage['id'] = response.cust_id;
+        sessionStorage['name'] = response.cust_name;
+        sessionStorage['phone'] = response.cust_contact;
+        sessionStorage['email'] = email
+        sessionStorage['isAdmin'] = response.isAdmin;
+        window.location = "http://127.0.0.1:5500/FrontEnd/view/index.html"
+    })
+        .catch(error => console.log(error));
+
+}
+
+function createCustomer(username, email) {
+    var options = {
+        cust_name: username,
+        cust_email: email,
+        cust_contact: "",
+        isAdmin: 0,
+        cust_password: ""
+    }
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify(options);
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    return fetch(`${BASE_URL}/createCustomer`, requestOptions)
+}
+
+function loginFirebase(email, password) {
+    console.log(email)
+    firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // Signed in
+            var user = userCredential.user;
+            console.log(user)
+            getUserByEmail(email).then(response => response.json())
+            // ...
+        })
+        .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(error)
+        });
+}

@@ -5,66 +5,69 @@
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="../css/auth.css">
-	<script src="../logic/auth.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
+
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
-	<script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-	
-	<script src="https://kit.fontawesome.com/80a1863013.js" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
-<div class="container" id="container">
-	<div class="form-container sign-up-container">
-		<form action="#">
-			<h1>Create Account</h1>
-			<div class="social-container">
-				<a id="facebook" href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-				<a id="google" href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-				<!-- <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a> -->
-			</div>
-			<span>or use your email for registration</span>
-			<input type="text" placeholder="Name" />
-			<input type="email" placeholder="Email" />
-			<input type="password" placeholder="Password" />
-			<button id="sign-up-btn">Sign Up</button>
-		</form>
-	</div>
-	<div class="form-container sign-in-container">
-		<form action="#">
-			<h1>Sign in</h1>
-			<div class="social-container">
-				<a id="facebook" href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-				<a id="google" href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-				<!-- <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a> -->
-			</div>
-			<span>or use your account</span>
-			<input type="email" placeholder="Email" />
-			<input type="password" placeholder="Password" />
-			<a href="#">Forgot your password?</a>
-			<button id="sign-in-btn">Sign In</button>
-		</form>
-	</div>
-	<div class="overlay-container">
-		<div class="overlay">
-			<div class="overlay-panel overlay-left">
-				<h1>Welcome Back!</h1>
-				<p>To keep connected with us please login with your personal info</p>
-				<button class="ghost" id="signIn" onclick="signInCLick()">Sign In</button>
-			</div>
-			<div class="overlay-panel overlay-right">
-				<h1>Hello, Friend!</h1>
-				<p>Enter your personal details and start journey with us</p>
-				<button class="ghost" id="signUp" onclick="regClick()">Sign Up</button>
+	<div class="container" id="container">
+		<div class="form-container sign-up-container">
+			<form action="#">
+				<h1>Create Account</h1>
+				<div class="social-container">
+					<a href="#" class="social" id="sign-up-google"><i
+							class="fab fa-google-plus-g"></i></a>
+				</div>
+				<span>or use your email for registration</span>
+				<input type="text" placeholder="Name" id="username" required />
+				<input type="email" placeholder="Email" id="signUpEmail" required />
+				<input type="password" placeholder="Password" id="signUpPassword" required />
+				<button id="register">Sign Up</button>
+			</form>
+		</div>
+		<div class="form-container log-in-container">
+			<form action="#">
+				<h1>Log in</h1>
+				<div class="social-container">
+					<a href="#" class="social" id="sign-in-google"><i
+							class="fab fa-google-plus-g"></i></a>
+				</div>
+				<span>or use your account</span>
+				<input type="email" placeholder="Email" id="email" required />
+				<input type="password" placeholder="Password" id="password" required />
+				<a href="#">Forgot your password?</a>
+				<button id="login-custom">Log In</button>
+			</form>
+		</div>
+		<div class="overlay-container">
+			<div class="overlay">
+				<div class="overlay-panel overlay-left">
+					<h1>Welcome Back!</h1>
+					<p>Already have an account? Log In</p>
+					<button class="ghost" id="logIn">Log In</button>
+				</div>
+				<div class="overlay-panel overlay-right">
+					<h1>Hello, There!</h1>
+					<p>Don't have an account? Sign Up Free</p>
+					<button class="ghost" id="signUp">Sign Up</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+	<div id="fb-root"></div>
+	<script async defer crossorigin="anonymous"
+		src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v16.0&appId=953575595349364&autoLogAppEvents=1"
+		nonce="vQZaMDLd"></script>
+
+	<script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+	<script src="https://kit.fontawesome.com/80a1863013.js" crossorigin="anonymous"></script>
+	<script src="../logic/auth.js"></script>
 
 </body>
 
