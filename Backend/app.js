@@ -39,7 +39,7 @@ app.post('/createOrder', (req, res) => {
 			res.status(response.status).json(response.data)
 		}).catch(error => {
 			// console.log(error.response.data.message)
-			res.status(error.response.status).json({message: "error.response.data.message"});
+			res.status(error.response.status).json({message: error});
 		})
 	}
 })
@@ -225,7 +225,7 @@ app.post("/getUserIdByEmail", (req, res) => {
 			console.log(response.data.data[0])
 			res.status(200).json(response.data.data[0]);
 		}).catch(error => {
-			res.status(400).json({message: error.response})
+			res.status(400).json({message: error})
 		})
 	}
 })
@@ -350,6 +350,7 @@ function addToCart(prodId, custId, quantity, Category) {
 }
 
 function getCartProducts(custId) {
+	console.log("Get Cart Products")
 	var url = `${BASE_URL}:${getPort(custId)}/getCartProducts`;
 	var body = {
 		cust_id: custId

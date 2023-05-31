@@ -30,7 +30,7 @@ function getUserById(id, req, res) {
 						user: user,
 						address: address
 					}
-					res.status(200).json({data: data});
+					res.status(200).json({ data: data });
 				}
 			})
 		}
@@ -45,7 +45,7 @@ function getUserId(email, req, res) {
 			res.status(400).json({ message: "Invalid User" })
 		} else {
 			console.log(user);
-			res.status(200).json({data: user});
+			res.status(200).json({ data: user });
 		}
 	})
 }
@@ -114,7 +114,7 @@ function addCustomer(body, req, res) {
 	// console.log(body);
 	var query = `Insert into customer (cust_name, cust_email, cust_password, cust_contact, isAdmin) values 
   ('${body.cust_name}', '${body.cust_email}', '${body.cust_password}', '${body.cust_contact}', 0)`;
-  console.log(query);
+	console.log(query);
 	con.query(query, (err, resp) => {
 		if (err) res.status(400).json({ message: err.message });
 		else res.status(200).json({ message: "Customer Created" });
@@ -129,7 +129,6 @@ function updateCustomer(body, req, res) {
 		res.status(400).json({ message: "Missing data" });
 	} else {
 		var custQuery = `UPDATE customer set cust_name = '${body.name}', cust_email='${body.email}', cust_contact='${body.contact}' where cust_id=${body.uid};`
-		var addressQuery = `update address set address_line_1='${body.address_line_1}', address_line_2='${body.address_line_2}', city='${body.city}', state='${body.state}', pincode='${body.pincode}', country='${body.country}', is_default=${body.is_default} where cust_id=${body.uid};`
 		con.query(`select * from customer where cust_id=${body.uid}`, (err, result, fields) => {
 			if (err) res.status(400).json({ message: err.message });
 			else {
@@ -138,9 +137,10 @@ function updateCustomer(body, req, res) {
 						console.log("Cust query exec");
 						if (err) res.status(400).json({ message: err.message });
 						else {
-							con.query(addressQuery, (err, resp) => {
-								console.log("ADDRESS QUERY EXEC;");
-								if (err) res.status(400).json({ message: err.message });
+							var query = `insert into address (address_line_1, address_line_2, city, state, pincode, country, is_default, cust_id) values
+	('${body.address_line_1}', '${body.address_line_2}', '${body.city}', '${body.state}', '${body.pincode}', '${body.country}', ${body.is_default}, ${body.uid})`;
+							con.query(query, (err, resp) => {
+								if (err) res.status(400).json({ message: err });
 								else {
 									console.log("Executed");
 									res.status(200).json({ message: "Profile Updated Successfully" });
@@ -157,4 +157,4 @@ function updateCustomer(body, req, res) {
 
 
 
-module.exports = { updateCustomer, getUserById, getUserAddressById, addAddress, addToCart, addCustomer, getCartProducts, getUserId}
+module.exports = { updateCustomer, getUserById, getUserAddressById, addAddress, addToCart, addCustomer, getCartProducts, getUserId }
